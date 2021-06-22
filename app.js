@@ -6,6 +6,9 @@ const db = require("./queries");
 //   res.send("Test send");
 // });
 
+app.get('/', (req, res) => {
+ res.send("Hello World");
+});
 app.get('/api/GameByScore', db.getGameByScore);
 
 
