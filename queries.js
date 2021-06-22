@@ -14,7 +14,7 @@ const pool = new pg.Pool({
 // Запрос на 10 игр с лучшим рейтингом
 const getGameByScore = (request, response) => {
   pool.query(
-    "SELECT * FROM game ORDER BY steamscore_percent ASC limit 10",
+    "SELECT * FROM game ORDER BY steamscore_percent DESC limit 10",
     (error, results) => {
       console.log(results);
       console.log(error);
