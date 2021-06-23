@@ -14,7 +14,7 @@ const pool = new pg.Pool({
 // Запрос на 10 игр с лучшим рейтингом
 const getGameByScore = (request, response) => {
   pool.query(
-    "SELECT * FROM game WHERE steamscore_percent is not null ORDER BY steamscore_percent DESC limit 10",
+    "SELECT game.game_id, game.name, game.developers FROM game WHERE steamscore_percent is not null and steamscore_quantity > 460000 ORDER BY steamscore_percent DESC limit 10",
     (error, results) => {
       console.log(results);
       console.log(error);
@@ -30,7 +30,7 @@ const getGameByScore = (request, response) => {
 // Запрос на 10 свежих игр
 const getGameByDate = (request, response) => {
   pool.query(
-    "SELECT * FROM game WHERE steamscore_percent is not null ORDER BY steamscore_percent DESC limit 10",
+    "SELECT game.game_id, game.name, game.developers FROM game WHERE DATE(date) > (NOW()- interval '6 month') ORDER BY date DESC limit 10",
     (error, results) => {
       console.log(results);
       console.log(error);
@@ -58,6 +58,8 @@ const getGameById = (request, response) => {
     }
   );
 };
+
+
 
 module.exports = {
   getGameByScore,
