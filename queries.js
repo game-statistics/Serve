@@ -75,6 +75,22 @@ const getGameById = (request, response) => {
   );
 };
 
+
+const getGenreByGameId = (request, response) => {
+  const id = request.params.id;
+
+  pool.query(
+    "SELECT genre.name as genre_name FROM genre inner join game_genre on genre.genre_id = game_genre.genre_id WHERE game_genre.game_id = $1",
+    [id],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).json(results.rows);
+    }
+  );
+};
+
 // const getGameById = (request, response) => {
 //   const id = request.params.id;
 
@@ -95,5 +111,5 @@ module.exports = {
   getGameByDate,
   getGameComingSoon,
   getGameById,
-
+  getGenreByGameId,
 };
