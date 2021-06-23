@@ -75,7 +75,7 @@ const getGameById = (request, response) => {
   );
 };
 
-
+// Запрос на жанры для игр
 const getGenreByGameId = (request, response) => {
   const id = request.params.id;
 
@@ -91,10 +91,10 @@ const getGenreByGameId = (request, response) => {
   );
 };
 
-
+// Запрос на все игры
 const getGames = (request, response) => {
   pool.query(
-    "SELECT game.game_id, game.name, game.developers FROM game where name is not null",
+    "SELECT game.game_id, game.name, game.developers FROM game where name is not null order by id",
     (error, results) => {
       console.log(results);
       console.log(error);
