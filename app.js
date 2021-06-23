@@ -4,6 +4,11 @@ const db = require("./queries");
 const cors = require("cors");
 const port = process.env.PORT || 3300;
 
+var http = require("http");
+setInterval(function () {
+  http.get("http://game-statistic-sv.herokuapp.com");
+}, 300000);
+
 app.use(cors());
 
 app.get("/", (req, res) => {
