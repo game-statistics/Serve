@@ -47,7 +47,7 @@ const getGameByDate = (request, response) => {
 const getGameById = (request, response) => {
   const id = parseInt(request.params.id)
 
-  pool.query('SELECT * FROM game WHERE id = $1', [id], (error, results) => {
+  pool.query('SELECT * FROM game WHERE id = $1', [game_id], (error, results) => {
     if (error) {
       throw error
     }
