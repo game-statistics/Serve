@@ -30,7 +30,23 @@ const getGameByScore = (request, response) => {
 // Запрос на 10 свежих игр
 const getGameByDate = (request, response) => {
   pool.query(
-    "SELECT game.game_id, game.name, game.developers FROM game WHERE DATE(date) > (NOW()- interval '6 month') ORDER BY date DESC limit 10",
+    "SELECT game.game_id, game.name, game.developers FROM game WHERE DATE(date) > (NOW()- interval '6 month') and game.coming_soon is false ORDER BY date DESC limit 10",
+    (error, results) => {
+      console.log(results);
+      console.log(error);
+      if (error) {
+        response.status(500).json({ success: false });
+      } else {
+        response.status(200).json(results.rows);
+      }
+    }
+  );
+};
+
+// Запрос на будущие релизы
+const getGameComingSoon = (request, response) => {
+  pool.query(
+    "SELECT game.game_id, game.name, game.developers, game.date FROM game WHERE DATE(date) > (NOW()- interval '6 month') and game.coming_soon is true ORDER BY date ASC limit 10",
     (error, results) => {
       console.log(results);
       console.log(error);
@@ -59,10 +75,25 @@ const getGameById = (request, response) => {
   );
 };
 
+// const getGameById = (request, response) => {
+//   const id = request.params.id;
 
+//   pool.query(
+//     "SELECT * FROM game WHERE game_id = $1",
+//     [id],
+//     (error, results) => {
+//       if (error) {
+//         throw error;
+//       }
+//       response.status(200).json(results.rows);
+//     }
+//   );
+// };
 
 module.exports = {
   getGameByScore,
   getGameByDate,
+  getGameComingSoon,
   getGameById,
+
 };

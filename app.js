@@ -17,7 +17,9 @@ app.get("/", (req, res) => {
 
 app.get("/api/GameByScore", db.getGameByScore);
 app.get("/api/GameByDate", db.getGameByDate);
+app.get("/api/GameComingSoon", db.getGameComingSoon);
 app.get("/api/GameById/:id", db.getGameById);
+
 
 // Слушаем сервер
 app.listen(port);
