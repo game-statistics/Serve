@@ -45,15 +45,19 @@ const getGameByDate = (request, response) => {
 
 // Запрос на игру по id
 const getGameById = (request, response) => {
-  const id = parseInt(request.params.game_id)
+  const id = request.params.id;
 
-  pool.query('SELECT * FROM game WHERE id = $1', [id], (error, results) => {
-    if (error) {
-      throw error
+  pool.query(
+    "SELECT * FROM game WHERE game_id = $1",
+    [id],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).json(results.rows);
     }
-    response.status(200).json(results.rows)
-  })
-}
+  );
+};
 
 module.exports = {
   getGameByScore,
