@@ -91,6 +91,22 @@ const getGenreByGameId = (request, response) => {
   );
 };
 
+
+const getGames = (request, response) => {
+  pool.query(
+    "SELECT game.game_id, game.name, game.developers FROM game where name is not null",
+    (error, results) => {
+      console.log(results);
+      console.log(error);
+      if (error) {
+        response.status(500).json({ success: false });
+      } else {
+        response.status(200).json(results.rows);
+      }
+    }
+  );
+};
+
 // const getGameById = (request, response) => {
 //   const id = request.params.id;
 
@@ -112,4 +128,5 @@ module.exports = {
   getGameComingSoon,
   getGameById,
   getGenreByGameId,
+  getGames,
 };

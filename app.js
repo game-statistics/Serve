@@ -20,7 +20,7 @@ app.get("/api/GameByDate", db.getGameByDate);
 app.get("/api/GameComingSoon", db.getGameComingSoon);
 app.get("/api/GameById/:id", db.getGameById);
 app.get("/api/GenreByGameId/:id", db.getGenreByGameId);
-
+app.get("/api/Games", db.getGames);
 
 // Слушаем сервер
 app.listen(port);
