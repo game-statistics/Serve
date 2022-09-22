@@ -30,7 +30,7 @@ const getGameByScore = (request, response) => {
 // Запрос на 10 свежих игр
 const getGameByDate = (request, response) => {
   pool.query(
-    "SELECT game.game_id, game.name, game.developers FROM game WHERE DATE(date) > (NOW()- interval '6 month') and game.coming_soon is false ORDER BY date DESC limit 10",
+    "SELECT game.game_id, game.name, game.developers FROM game WHERE DATE(date) > (NOW()- interval '3 month') and game.coming_soon is false ORDER BY date DESC limit 10",
     (error, results) => {
       console.log(results);
       console.log(error);
@@ -46,7 +46,7 @@ const getGameByDate = (request, response) => {
 // Запрос на будущие релизы
 const getGameComingSoon = (request, response) => {
   pool.query(
-    "SELECT game.game_id, game.name, game.developers, game.date FROM game WHERE DATE(date) > (NOW()- interval '6 month') and game.coming_soon is true ORDER BY date ASC limit 10",
+    "SELECT game_detail.game_id, game_detail.name, game_detail.developers, game_detail.date FROM game_detail WHERE date_part('year', DATE(date)) >= (date_part('year', CURRENT_DATE)) and game_detail.coming_soon is true ORDER BY DATE(date) limit 10",
     (error, results) => {
       console.log(results);
       console.log(error);
