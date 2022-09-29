@@ -46,7 +46,7 @@ const getGameByDate = (request, response) => {
 // Запрос на будущие релизы
 const getGameComingSoon = (request, response) => {
   pool.query(
-    "SELECT game_detail.game_id, game_detail.name, game_detail.developers, game_detail.date FROM game_detail WHERE date_part('year', DATE(date)) >= (date_part('year', CURRENT_DATE)) and game_detail.coming_soon is true ORDER BY DATE(date) limit 10",
+    "SELECT game.game_id, game.name, game.developers, game.date FROM game WHERE date_part('year', DATE(date)) >= '2021' and game.coming_soon is true ORDER BY DATE(date) limit 10",
     (error, results) => {
       console.log(results);
       console.log(error);
