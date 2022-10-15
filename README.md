@@ -1,2 +1,2 @@
 # Serve
-API and server-shit
+API and server
